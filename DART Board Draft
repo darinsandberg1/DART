@@ -1,0 +1,32 @@
+<html lang="en">
+ <head>
+      <meta charset="utf-8" />
+      <title>Simple Canvas Dartbaord</title>
+ </head>
+ <canvas id="canvas" width="400" height="400"></canvas>
+      <script>
+      
+      function drawCircle() {
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+
+            ctx.beginPath();
+            ctx.arc(center.x, center.y, radius, 0, 2 * Math.PI, false);
+            ctx.lineWidth = 1;
+            ctx.strokeStyle = colour;
+
+            if(fillColour) {
+            ctx.fillStyle = fillColour;
+            ctx.fill();
+
+            ctx.stroke();
+            }
+      }
+      
+  </script>
+      
+ <body onload='DartBoard().init();'>
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css.css"> 
+</head>
+
+<body>
+
+  <div id="dartboard">
+    <div class="ring red"></div>
+    <div class="ring white"></div>
+    <div class="ring green"></div>
+	<div class="line-horizontal"></div>
+    <div class="ring white"></div>
+    <div class="ring black center"></div>
+    <div class="ring white"></div>
+    <div class="ring green">
+      <div class="number" style="top: 10px; left: 10px;">20</div>
+    </div>
+    <div class="ring red">
+      <div class="number" style="bottom: 10px; right: 10px;">1</div>
+    </div>
+	<div class="line-vertical"></div>
+    <div class="ring white"></div>
+    <div class="ring green"></div>
+    <div class="ring white"></div>
+    <div class="ring red"></div>
+    <div class="ring white"></div>
+    <div class="ring green"></div>
+    <div class="ring white"></div>
+    <div class="ring black outer"></div>
+	<div class="line-horizontal"></div>
+    <div class="ring white"></div> 
+    <div class="ring green"></div>
+    <div class="ring white"></div>
+    <div class="ring red"></div>
+    <div class="ring white"></div>
+    <div class="ring green">
+      <div class="number" style="top: 10px; left: 10px;">5</div>
+    </div>
+    <div class="ring red">
+      <div class="number" style="bottom: 10px; right: 10px;">12</div>
+    </div>
+    <div class="ring white"></div>
+    <div class="ring green"></div>
+    <div class="ring white"></div>
+    <div class="ring red"></div>
+    <div class="ring white"></div>
+    <div class="ring green"></div>
+    <div class="ring white"></div>
+	<div class="line-vertical"></div>
+    <div class="black inner"></div>
+  </div>
+
+</body>
+</html>

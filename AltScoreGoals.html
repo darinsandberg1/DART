@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scoring Range and Values</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            text-size: large;
+            margin-bottom: 5px;
+        }
+
+        #output {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Scoring Range and Values</h2>
+        <p>Define the range:</p>
+        <input type="text" id="minRange" placeholder="Minimum Range">
+        <input type="text" id="maxRange" placeholder="Maximum Range">
+        <p>Enter the Center Value:</p>
+        <h7> (what would score highest)</h7>
+        <input type="text" id="middle" placeholder="Enter a number">
+        <div id="output"></div>
+        <button onclick="checkNumber()">Submit</button>
+    </div>
+
+    <script>
+        function checkNumber() {
+            var minRange = parseFloat(document.getElementById('minRange').value);
+            var maxRange = parseFloat(document.getElementById('maxRange').value);
+            var middle = parseFloat(document.getElementById('middle').value);
+            var outputElement = document.getElementById('output');
+
+            // Validate the input
+            if (isNaN(minRange) || isNaN(maxRange) || isNaN(middle)) {
+                outputElement.textContent = 'Please enter valid numbers.';
+                return;
+            }
+
+            // Check if the input number falls within the range
+            if (middle >= minRange && middle <= maxRange) {
+                outputElement.textContent = 'The center value is ' + middle + ' and the range is (' + minRange + ' - ' + maxRange + ').';
+            } else {
+                outputElement.textContent = 'The number ' + middle + ' is NOT within the range ' + minRange + ' - ' + maxRange + '.';
+            }
+
+            // Store the data in local storage
+            localStorage.setItem('minRange', minRange);
+            localStorage.setItem('maxRange', maxRange);
+            localStorage.setItem('middle', middle);
+        }
+
+        // Retrieve stored data when the page loads
+        window.onload = function() {
+            var storedMinRange = localStorage.getItem('minRange');
+            var storedMaxRange = localStorage.getItem('maxRange');
+            var storedMiddle = localStorage.getItem('middle');
+
+            // Populate input fields with stored data
+            document.getElementById('minRange').value = storedMinRange || '';
+            document.getElementById('maxRange').value = storedMaxRange || '';
+            document.getElementById('middle').value = storedMiddle || '';
+        }
+    </script>
+</body>
+</html>

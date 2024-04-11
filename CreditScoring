@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Risk</title>
+    <style>
+        body{
+            background-color: lightblue;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .container {
+            margin: 20px;
+            
+        }
+        input[type="number"] {
+            width: 170px;
+            padding: 5px;
+            margin-right: 10px;
+    
+        }
+        #output1, #output2, #output3, #output4, #output5, #output6, #output7 {
+            margin-top: 10px;
+            font-weight: bold;
+            
+        }
+
+        #output8 {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: larger;
+            margin-bottom: 40px;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Credit Risk</h1>
+        <p>Enter Non-Current Loans and Leases + OREO to Loans/Leases + OREO</p>
+        <input type="number" id="input1" placeholder="Enter Value">Peer Group: 0.45
+        <div id="output1"></div>
+        <br>
+
+        <p>Enter Non-Current Loans + OREO to T1 Capital and Allowance</p>
+        <input type="number" id="input2" placeholder="Enter Value">Peer Group: 2.84
+        <div id="output2"></div>
+        <br>
+
+        <p>Enter Loan Growth Rate</p>
+        <input type="number" id="input3" placeholder="Enter Loan Growth Rate">Peer Group: 9.66
+        <div id="output3"></div>
+        <br>
+
+        <p>Enter Yield on Total Loans and Leases (TE)</p>
+        <input type="number" id="input4" placeholder="Enter Value">Peer Group: 5.78
+        <div id="output4"></div>
+        <br>
+
+        <p>Enter Net Loss to Average Total Loans and Leases</p>
+        <input type="number" id="input5" placeholder="Enter Value">Peer Group: 0.06
+        <div id="output5"></div>
+        <br>
+
+        <p>Enter Loan and Lease Allowance to Loans and Lease Not for Sale</p>
+        <input type="number" id="input6" placeholder="Enter Value">Peer Group: 1.23
+        <div id="output6"></div>
+        <br>
+
+        <p>Enter Average Earning Assets to Average Assets</p>
+        <input type="number" id="input7" placeholder="Enter Value">Peer Group: 95.47
+        <div id="output7"></div>
+    
+
+        <div id="output8"></div>
+    
+
+        <button onclick="calculate()">Calculate</button>
+    </div>
+
+    <script>
+        // Function to store data in local storage
+        function storeData() {
+            var inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(function(input, index) {
+                var inputValue = input.value;
+                var outputElement = document.getElementById('output' + (index + 1));
+                var outputScore = outputElement.innerText.replace('Score: ', '');
+                localStorage.setItem('input' + (index + 1), inputValue);
+                localStorage.setItem('output' + (index + 1), outputScore);
+            });
+        }
+
+        // Function to calculate scores and display
+        function calculate() {
+            storeData(); // Store the data before calculating scores
+
+            var input1 = document.getElementById('input1').value;
+            var input2 = document.getElementById('input2').value;
+            var input3 = document.getElementById('input3').value;
+            var input4 = document.getElementById('input4').value;
+            var input5 = document.getElementById('input5').value;
+            var input6 = document.getElementById('input6').value;
+            var input7 = document.getElementById('input7').value;
+            
+
+            
+            //Non-Current Loans and Leases + OREO to Loans/Leases + OREO
+            let NCLLOREO = parseFloat(input1);
+            let NCLLOREOoutput;
+
+            if(NCLLOREO >= .08 && NCLLOREO < .12){
+                NCLLOREOoutput = +"1";
+            }else if(NCLLOREO < .40){
+                NCLLOREOoutput = +"2";
+            }else if(NCLLOREO < .70){
+                NCLLOREOoutput = +"3";
+            }else if(NCLLOREO < 1){
+                NCLLOREOoutput = +"4";
+            }else{
+                NCLLOREOoutput = +"5";
+            }
+
+            //Non-Current Loans + OREO to T1 Capital and Allowance
+            let NCLCA = parseFloat(input2);
+            let NCLCAoutput;
+
+            if(NCLCA >= .3 && NCLCA < .4){
+                NCLCAoutput = +"1";
+            }else if(NCLCA >= .2 && NCLCA < 1.5){
+                NCLCAoutput = +"2";
+            }else if(NCLCA < 3){
+                NCLCAoutput = +"3";
+            }else if(NCLCA < 4.5){
+                NCLCAoutput = +"4";
+            }else{
+                NCLCAoutput = +"5";
+            }
+
+
+            //Loan Growth Rate
+            let loangro = parseFloat(input3);
+            let loangrooutput;
+
+            if(loangro >= 3 && loangro < 6){
+                loangrooutput = +"1";
+            }else if(loangro < 10){
+                loangrooutput = +"2";
+            }else if(loangro < 12.5){
+                loangrooutput = +"3";
+            }else if(loangro < 20){
+                loangrooutput = +"4";
+            }else{
+                loangrooutput = +"5";
+            }
+
+            
+            //Yield on Total Loans and Leases (TE)
+            let YTLL = parseFloat(input4);
+            let YTLLoutput;
+
+            if(YTLL >= 5 && YTLL < 6){
+                YTLLoutput = +"1";
+            }else if(YTLL >= 4 && YTLL < 7){
+                YTLLoutput = +"2";
+            }else if(YTLL >= 3 && YTLL < 8){
+                YTLLoutput = +"3";
+            }else if(YTLL >= 2 && YTLL < 9){
+                YTLLoutput = +"4";
+            }else{
+                YTLLoutput = +"5";
+            }
+
+            
+            //Net Loss to Average Total Loans and Leases
+            let NLATLL = parseFloat(input5);
+            let NLATLLoutput;
+
+            if(NLATLL >= .01 && NLATLL < .02){
+                NLATLLoutput = +"1";
+            }else if(NLATLL < .1){
+                NLATLLoutput = +"2";
+            }else if(NLATLL < .55){
+                NLATLLoutput = +"3";
+            }else if(NLATLL < 1){
+                NLATLLoutput = +"4";
+            }else{
+                NLATLLoutput = +"5";
+            }
+
+            
+            //Loan and Lease Allowance to Loans and Lease Not for Sale
+            let LLA = parseFloat(input6);
+            let LLAoutput;
+
+            if(LLA >= 1.75 && LLA < 2.25){
+                LLAoutput = +"1";
+            }else if(LLA >= 1.5){
+                LLAoutput = +"2";
+            }else if(LLA >= 1.25){
+                LLAoutput = +"3";
+            }else if(LLA >= 1){
+                LLAoutput = +"4";
+            }else{
+                LLAoutput = +"5";
+            }
+
+            
+            //Average Earning Assets to Average Assets
+            let AEA = parseFloat(input7);
+            let AEAoutput;
+
+            if(AEA >= 95 && AEA < 96.5){
+                AEAoutput = +"1";
+            }else if(AEA >= 93 && AEA < 98){
+                AEAoutput = +"2";
+            }else if(AEA >= 91 && AEA < 98.7){
+                AEAoutput = +"3";
+            }else if(AEA >= 90 && AEA < 99.7){
+                AEAoutput = +"4";
+            }else{
+                AEAoutput = +"5";
+            }
+
+            
+            let cumoutput = ((NCLLOREOoutput + NCLCAoutput + loangrooutput + YTLLoutput + NLATLLoutput + LLAoutput + AEAoutput) / 7).toFixed(2);
+
+            
+            document.getElementById('output1').innerHTML = 'Score: ' + NCLLOREOoutput;
+            document.getElementById('output2').innerHTML = 'Score: ' + NCLCAoutput;
+            document.getElementById('output3').innerHTML = 'Score: ' + loangrooutput;
+            document.getElementById('output4').innerHTML = 'Score: ' + YTLLoutput;
+            document.getElementById('output5').innerHTML = 'Score: ' + NLATLLoutput;
+            document.getElementById('output6').innerHTML = 'Score: ' + LLAoutput;
+            document.getElementById('output7').innerHTML = 'Score: ' + AEAoutput;
+            document.getElementById('output8').innerHTML = 'Cummulative Score: ' + cumoutput;
+
+        storeData();
+            localStorage.setItem('output1', NCLLOREOoutput);
+            localStorage.setItem('output2', NCLCAoutput);
+            localStorage.setItem('output3', loangrooutput);
+            localStorage.setItem('output4', YTLLoutput);
+            localStorage.setItem('output5', NLATLLoutput);
+            localStorage.setItem('output6', LLAoutput);
+            localStorage.setItem('output7', AEAoutput);
+            localStorage.setItem('output8', cumoutput);
+        
+        
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual Draggable Range Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .slider-container {
+            width: 300px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .slider {
+            width: 100%;
+            height: 5px;
+            background-color: #ddd;
+            position: relative;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .slider-handle {
+            width: 20px;
+            height: 20px;
+            background-color: #007bff;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .slider-value {
+            position: absolute;
+            color: #555;
+            text-align:justify;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .output-box {
+            margin-top: 40px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <!-- First set of sliders and output boxes -->
+        <div>
+            <div class="slider" id="slider1">
+                <div class="slider-handle" id="handle1_1"></div>
+                <div class="slider-handle" id="handle2_1"></div>
+            </div>
+            <div class="slider-value" id="value1_1">0</div>
+            <div class="slider-value" id="value2_1">100</div>
+            <div class="output-box" id="outputBox1">Score 1 Range: 0 to 100</div>
+        </div>
+
+        <!-- Second set of sliders and output boxes -->
+        <div style="margin-top: 20px;">
+            <div class="slider" id="slider2">
+                <div class="slider-handle" id="handle1_2"></div>
+                <div class="slider-handle" id="handle2_2"></div>
+            </div>
+            <div class="slider-value" id="value1_2">0</div>
+            <div class="slider-value" id="value2_2">100</div>
+            <div class="output-box" id="outputBox2">Selected Range: 0 to 100, Score: 2</div>
+        </div>
+
+        <!-- Third set of sliders and output boxes -->
+        <div style="margin-top: 20px;">
+            <div class="slider" id="slider3">
+                <div class="slider-handle" id="handle1_3"></div>
+                <div class="slider-handle" id="handle2_3"></div>
+            </div>
+            <div class="slider-value" id="value1_3">0</div>
+            <div class="slider-value" id="value2_3">100</div>
+            <div class="output-box" id="outputBox3">Selected Range: 0 to 100, Score: 3</div>
+        </div>
+
+        <!-- Fourth set of sliders and output boxes -->
+        <div style="margin-top: 20px;">
+            <div class="slider" id="slider4">
+                <div class="slider-handle" id="handle1_4"></div>
+                <div class="slider-handle" id="handle2_4"></div>
+            </div>
+            <div class="slider-value" id="value1_4">0</div>
+            <div class="slider-value" id="value2_4">100</div>
+            <div class="output-box" id="outputBox4">Selected Range: 0 to 100, Score: 4</div>
+        </div>
+
+        <!-- Fifth set of sliders and output boxes -->
+        <div style="margin-top: 20px;">
+            <div class="slider" id="slider5">
+                <div class="slider-handle" id="handle1_5"></div>
+                <div class="slider-handle" id="handle2_5"></div>
+            </div>
+            <div class="slider-value" id="value1_5">0</div>
+            <div class="slider-value" id="value2_5">100</div>
+            <div class="output-box" id="outputBox5">Selected Range: 0 to 100, Score: 5</div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeSliders('slider1', 'handle1_1', 'handle2_1', 'value1_1', 'value2_1', 'outputBox1', 1);
+            initializeSliders('slider2', 'handle1_2', 'handle2_2', 'value1_2', 'value2_2', 'outputBox2', 2);
+            initializeSliders('slider3', 'handle1_3', 'handle2_3', 'value1_3', 'value2_3', 'outputBox3', 3);
+            initializeSliders('slider4', 'handle1_4', 'handle2_4', 'value1_4', 'value2_4', 'outputBox4', 4);
+            initializeSliders('slider5', 'handle1_5', 'handle2_5', 'value1_5', 'value2_5', 'outputBox5', 5);
+        });
+
+        function initializeSliders(sliderId, handle1Id, handle2Id, value1Id, value2Id, outputBoxId, score) {
+            var slider = document.getElementById(sliderId);
+            var handle1 = document.getElementById(handle1Id);
+            var handle2 = document.getElementById(handle2Id);
+            var value1 = document.getElementById(value1Id);
+            var value2 = document.getElementById(value2Id);
+            var outputBox = document.getElementById(outputBoxId);
+
+            var dragging1 = false;
+            var dragging2 = false;
+            var rect = slider.getBoundingClientRect();
+
+            // Set initial positions and values
+            handle1.style.left = '0px';
+            handle2.style.left = '100%';
+            value1.textContent = '0';
+            value2.textContent = '100';
+            outputBox.textContent = 'Score: ' + score + ' Range: 0 to 100';
+
+            handle1.addEventListener('mousedown', function(e) {
+                dragging1 = true;
+            });
+
+            handle2.addEventListener('mousedown', function(e) {
+                dragging2 = true;
+            });
+
+            window.addEventListener('mousemove', function(e) {
+                if (dragging1 || dragging2) {
+                    var x = e.clientX - rect.left;
+                    var position = Math.min(Math.max(x, 0), rect.width);
+
+                    if (dragging1 && position <= parseFloat(handle2.style.left || '50%')) {
+                        handle1.style.left = position + 'px';
+                        value1.style.left = position + 'px';
+                        value1.textContent = Math.round((parseInt(handle1.style.left) / rect.width) * 100);
+                    } else if (dragging2 && position >= parseFloat(handle1.style.left || '50%')) {
+                        handle2.style.left = position + 'px';
+                        value2.style.left = position + 'px';
+                        value2.textContent = Math.round((parseInt(handle2.style.left) / rect.width) * 100);
+                    }
+
+                    // Update output box
+                    var minRange = parseInt(value1.textContent);
+                    var maxRange = parseInt(value2.textContent);
+                    outputBox.textContent = 'Score ' + score + ' Range: ' + minRange + ' to ' + maxRange;
+                }
+            });
+
+            window.addEventListener('mouseup', function(e) {
+                dragging1 = false;
+                dragging2 = false;
+            });
+        }
+    </script>
+</body>
+</html>
